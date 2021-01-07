@@ -1,0 +1,23 @@
+local Sound = script.Parent:WaitForChild("Sound")
+local SongsList = {"rbxassetid://926493242", "rbxassetid://229478988", "rbxassetid://1222471319"}
+local B = workspace.Radio
+local A = B:GetChildren()
+game:GetService("RunService").Heartbeat:Connect(function()
+	for i = 0,#A - 1 do
+		local L = B:FindFirstChild(i)
+		local C = (-tick()/ 10 + i / #A) %1
+		L.Color = Color3.fromHSV(C,1,1)
+	end
+end)
+local function PlaySongs()
+	for Index = 1, #SongsList do
+		Sound.SoundId = SongsList[Index]
+		Sound:Play()
+		wait(Sound.TimeLength)
+		if Index == #SongsList then
+			PlaySongs()
+		end
+	end
+end
+
+PlaySongs()
